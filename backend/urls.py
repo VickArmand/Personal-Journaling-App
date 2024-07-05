@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from backend.categories import views
 
-urlpatterns = [
+urlpatterns = [ 
     path('admin/', admin.site.urls),
+    path('categories/', views.index),
+    path('category/create', views.create)
 ]
