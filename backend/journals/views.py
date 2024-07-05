@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseBadRequest
-from models import Journal
+from .models import Journal
 
 def index(request):
     """"""
