@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'backend.categories',
-    'backend.journals'
+    'backend.journals',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
