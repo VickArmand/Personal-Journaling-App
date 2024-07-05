@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from backend.categories import views
-
+from rest_framework import routers
+# router = routers.DefaultRouter()
+# router.register()
 urlpatterns = [ 
     path('admin/', admin.site.urls),
-    path('categories/', views.index),
-    path('category/create', views.create)
+    path('', include('backend.journals.urls')),
+    path('', include('backend.categories.urls')),
 ]
