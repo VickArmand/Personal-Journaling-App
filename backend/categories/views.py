@@ -1,19 +1,23 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest
 from .models import Category
+from rest_framework.decorators import api_view
+from .serializers import CategorySerializer
+from uuid import uuid4
 
 def index(request):
     """"""
     categories = Category.objects.all()
     return HttpResponse(categories)
 
+@api_view(['POST'])
 def create(request):
     """"""
-    cname = request.POST['name']
-    if not cname:
+    request.data.id = str(uuid4())
+    serializer = CategorySerializer(data=request.data)
+    if not serializer.is_valid():
         return HttpResponseBadRequest('Category Name Required')
-    category = Category(name=cname)
-    category.save()
+    serializer.save()
     return HttpResponse('Category Created'), 201
 
 def edit(request, id):

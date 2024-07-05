@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseBadRequest
+from django.http import HttpResponse,HttpResponseBadRequest, JsonResponse
 from .models import Journal
 
 def index(request):
