@@ -65,6 +65,14 @@ The relational database used is MySQL.</p>
 </ul>
 
 ## API
+
+#### Authentication
+<ul>
+<li><b>Sign Up: </b><code>http://127.0.0.1:8000/users/register</code></li>
+<li><b>Sign In: </b><code>http://127.0.0.1:8000/users/login</code></li>
+<li><b>Sign Out: </b><code>http://127.0.0.1:8000/users/logout</code></li>
+</ul>
+
 #### Show Journals and Categories:
 <ul>
 <li><code>http://127.0.0.1:8000/categories</code></li>
@@ -93,3 +101,7 @@ The relational database used is MySQL.</p>
 #### Delete a journal and a category:
 <ul><li><code>http://127.0.0.1:8000/category/delete/:id</code>
 </li><li><code>http://127.0.0.1:8000/journal/delete/:id</code></li></ul>
+
+#### Journals summary
+<ul><li><code>http://127.0.0.1:8000/journals/summary</code>
+</li></ul>
