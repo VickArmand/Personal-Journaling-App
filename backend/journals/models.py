@@ -4,7 +4,6 @@ from backend.categories.models import Category
 
 class Journal(models.Model):
     """"""
-    id = models.UUIDField(primary_key=True)
     title = models.CharField(max_length=255)
     content = models.CharField(max_length=2000)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
