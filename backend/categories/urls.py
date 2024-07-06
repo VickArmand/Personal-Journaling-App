@@ -4,7 +4,7 @@ from . import views
 urlpatterns = [
     path('categories/', views.index),
     path('category/add', views.create),
-    path('category/edit/:id', views.edit),
-    path('category/delete/:id', views.delete),
-    path('category/:id', views.find),
+    path('category/edit/<int:id>', views.edit),
+    path('category/delete/<int:id>', views.delete),
+    path('category/<int:id>', views.find),
 ]

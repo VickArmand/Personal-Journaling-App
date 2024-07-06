@@ -3,8 +3,8 @@ from . import views
 
 urlpatterns = [
     path('journals/', views.index),
-    path('journal/create', views.create),
-    path('journal/edit/:id', views.edit),
-    path('journal/delete/:id', views.delete),
-    path('journal/:id', views.find),
+    path('journal/add', views.create),
+    path('journal/edit/<int:id>', views.edit),
+    path('journal/delete/<int:id>', views.delete),
+    path('journal/<int:id>', views.find),
 ]
