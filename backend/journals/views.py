@@ -1,50 +1,58 @@
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseBadRequest, JsonResponse
+from django.http import JsonResponse
 from .models import Journal
+from .serializers import JournalSerializer
+from rest_framework import status
+from rest_framework.decorators import api_view
 
+@api_view(['GET'])
 def index(request):
     """"""
-    categories = Journal.objects.all()
-    return HttpResponse(categories)
+    journals = Journal.objects.all()
+    serializer = JournalSerializer(journals, many=True)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
+@api_view(['POST'])
 def create(request):
     """"""
-    jid = request.POST['category_id']
-    uid = request.POST['user_id']
-    title = request.POST['title']
-    content = request.POST['content']
-    if not (jid and uid and title and content):
-        return HttpResponseBadRequest('Please fill in all fields')
-    journal = Journal(title=title, user_id=uid, category_id=jid, content=content)
-    journal.save()
-    return HttpResponse('Journal Created')
+    serializer = JournalSerializer(data=request.data)
+    if not serializer.is_valid():
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_404_NOT_FOUND)
+    serializer.save()
+    return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['PUT'])
 def edit(request, id):
     """"""
-    jid = id
-    if not id:
-        return HttpResponseBadRequest("Invalid Journal ID")
-    jcontent = request.PUT['content']
-    journal = Journal.objects.get(id=jid)
-    if not journal:
-        return HttpResponseBadRequest("Journal not found")
-    journal.content = jcontent
-    journal.save()
-    return HttpResponse('Journal edited')
+    cid = id
+    try:
+        journal = Journal.objects.get(id=cid)
+    except Journal.DoesNotExist:
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_404_NOT_FOUND)
+    serializer = JournalSerializer(journal, data=request.data)
+    if not serializer.is_valid():
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    serializer.save()
+    return JsonResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
 
+@api_view(['GET'])
 def find(request, id):
     """"""
-    jid = id
-    journal = Journal.objects.get(id=jid)
-    return HttpResponse(journal)
+    cid = id
+    try:
+        journal = Journal.objects.get(id=cid)
+    except Journal.DoesNotExist:
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_404_NOT_FOUND)
+    serializer = JournalSerializer(journal)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['DELETE'])
 def delete(request, id):
     """"""
-    jid = id
-    if not id:
-        return HttpResponseBadRequest("Invalid Journal ID")
-    journal = Journal.objects.get(id=jid)
-    if not journal:
-        return HttpResponseBadRequest("Journal not found")
+    cid = id
+    try:
+        journal = Journal.objects.get(id=cid)
+    except Journal.DoesNotExist:
+        return JsonResponse({"error": "Journal not found"}, status=status.HTTP_404_NOT_FOUND)
     journal.delete()
-    return HttpResponse('Journal Deleted')
+    return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)

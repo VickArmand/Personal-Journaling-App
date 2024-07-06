@@ -1,52 +1,59 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import JsonResponse
 from .models import Category
 from rest_framework.decorators import api_view
+from rest_framework import status
 from .serializers import CategorySerializer
-from uuid import uuid4
 
+@api_view(['GET'])
 def index(request):
     """"""
     categories = Category.objects.all()
-    return HttpResponse(categories)
+    serializer = CategorySerializer(categories, many=True)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 @api_view(['POST'])
 def create(request):
     """"""
-    request.data.id = str(uuid4())
     serializer = CategorySerializer(data=request.data)
     if not serializer.is_valid():
-        return HttpResponseBadRequest('Category Name Required')
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_404_NOT_FOUND)
     serializer.save()
-    return HttpResponse('Category Created'), 201
+    return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
 
+@api_view(['PUT'])
 def edit(request, id):
     """"""
     cid = id
-    if not id:
-        return HttpResponseBadRequest("Invalid Category ID")
-    category = Category.objects.get(id=cid)
-    if not category:
-        return HttpResponseBadRequest("Category not found")
-    cname = request.PUT['name']
-    if cname:
-        category.name = cname
-        category.save()
-    return HttpResponse('Category edited')
+    try:
+        category = Category.objects.get(id=cid)
+    except Category.DoesNotExist:
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_404_NOT_FOUND)
+    serializer = CategorySerializer(category, data=request.data)
+    if not serializer.is_valid():
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    serializer.save()
+    return JsonResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
 
+
+@api_view(['GET'])
 def find(request, id):
     """"""
     cid = id
-    category = Category.objects.get(id=cid)
-    return HttpResponse(category)
+    try:
+        category = Category.objects.get(id=cid)
+    except Category.DoesNotExist:
+        return JsonResponse({"error": serializer.errors}, status=status.HTTP_404_NOT_FOUND)
+    serializer = CategorySerializer(category)
+    return JsonResponse(serializer.data, status=status.HTTP_200_OK)
 
+@api_view(['DELETE'])
 def delete(request, id):
     """"""
     cid = id
-    if not id:
-        return HttpResponseBadRequest("Invalid Category ID")
-    category = Category.objects.get(id=cid)
-    if not category:
-        return HttpResponseBadRequest("Category not found")
+    try:
+        category = Category.objects.get(id=cid)
+    except Category.DoesNotExist:
+        return JsonResponse({"error": "Category not found"}, status=status.HTTP_404_NOT_FOUND)
     category.delete()
-    return HttpResponse('Category Deleted')
+    return JsonResponse({}, status=status.HTTP_204_NO_CONTENT)
