@@ -51,5 +51,45 @@ The relational database used is MySQL.</p>
 </ol>
 
 ## Execution
+<ul>
+<b>First make sure you have Python installed in your machine</b>
+<li>Create a virtual environment for the backend using the following command:
+<code>python -m venv env</code></li>
+<li>Activate the virtual environment using the following command:
+<code>source env/bin/activate</code> - <b>Linux</b>
+<code>env\Scripts\activate</code> - <b>Windows</b></li>
+<li>Add the required dependencies in the virtual environment using the following command:
+<code>pip install -r requirements.txt</code>
+<li>Execute the backend using the following command:
+<code>python manage.py runserver</code></li>
+</ul>
 
 ## API
+#### Show Journals and Categories:
+<ul>
+<li><code>http://127.0.0.1:8000/categories</code></li>
+<li><code>http://127.0.0.1:8000/journals</code></li>
+</ul>
+
+#### Find a journal and a category:
+<ul>
+<li><code>http://127.0.0.1:8000/category/:id</code>
+</li>
+<li><code>http://127.0.0.1:8000/journal/:id</code></li>
+</ul>
+
+#### Create a journal and a category:
+<ul>
+<li><code>http://127.0.0.1:8000/category/add/</code></li>
+<li><code>http://127.0.0.1:8000/journal/add/</code></li>
+</ul>
+
+#### Edit an existing journal and a category:
+<ul>
+<li><code>http://127.0.0.1:8000/category/edit/:id</code>
+</li>
+<li><code>http://127.0.0.1:8000/journal/edit/:id</code></li></ul>
+
+#### Delete a journal and a category:
+<ul><li><code>http://127.0.0.1:8000/category/delete/:id</code>
+</li><li><code>http://127.0.0.1:8000/journal/delete/:id</code></li></ul>
