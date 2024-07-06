@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import Category
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from .serializers import CategorySerializer
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def index(request):
     """"""
     categories = Category.objects.all()
@@ -13,6 +15,7 @@ def index(request):
     return JsonResponse(serializer.data, status=status.HTTP_200_OK, safe=False)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create(request):
     """"""
     serializer = CategorySerializer(data=request.data)
@@ -22,6 +25,7 @@ def create(request):
     return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def edit(request, id):
     """"""
     cid = id
@@ -37,6 +41,7 @@ def edit(request, id):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def find(request, id):
     """"""
     cid = id
@@ -48,6 +53,7 @@ def find(request, id):
     return JsonResponse(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete(request, id):
     """"""
     cid = id
