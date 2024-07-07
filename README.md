@@ -1,12 +1,15 @@
 # PERSONAL JOURNALING APPLICATION
 
 ## Project Description
+
 <p>This project consists of a mobile application and a backend service for personal journaling. Users are be able to write journal entries, categorize them, and view a summary of their entries.<br>
-The mobile application is built using React Native while the backend service is built using Django(Python Framework).<br>
+The mobile application is built using React Native while the backend service is built using Django Rest(Python Framework).<br>
 The relational database used is MySQL.</p>
 
 ## Features
+
 #### Mobile Application
+
 <ol>
 <li>User Authentication
 <ul><li>Allow users to sign up and log in.</li></ul>
@@ -32,6 +35,7 @@ The relational database used is MySQL.</p>
 </ol>
 
 #### Backend Service
+
 <ol>
 <li>User Management
 <ul>
@@ -51,6 +55,9 @@ The relational database used is MySQL.</p>
 </ol>
 
 ## Execution
+
+#### Backend Service
+
 <ul>
 <b>First make sure you have Python and MySQL installed in your machine</b>
 <li>Start the sql service in your machine</li>
@@ -67,9 +74,18 @@ The relational database used is MySQL.</p>
 <code>python manage.py runserver</code></li>
 </ul>
 
+#### Mobile Application
+
+<ul>
+<li>Navigate to the mobile directory on your command prompt</li>
+<li>Run <code>npm install</code> to add the required node modules in your machine</li>
+<li>Run <code>npm start</code> and select which platform to execute the application on</li>
+</ul>
+
 ## API
 
 #### Authentication
+
 <ul>
 <li><b>Sign Up: </b><code>http://127.0.0.1:8000/users/register</code></li>
 <li><b>Sign In: </b><code>http://127.0.0.1:8000/users/login</code></li>
@@ -77,12 +93,14 @@ The relational database used is MySQL.</p>
 </ul>
 
 #### Show Journals and Categories:
+
 <ul>
 <li><code>http://127.0.0.1:8000/categories</code></li>
 <li><code>http://127.0.0.1:8000/journals</code></li>
 </ul>
 
 #### Find a journal and a category:
+
 <ul>
 <li><code>http://127.0.0.1:8000/category/:id</code>
 </li>
@@ -90,21 +108,25 @@ The relational database used is MySQL.</p>
 </ul>
 
 #### Create a journal and a category:
+
 <ul>
 <li><code>http://127.0.0.1:8000/category/add/</code></li>
 <li><code>http://127.0.0.1:8000/journal/add/</code></li>
 </ul>
 
 #### Edit an existing journal and a category:
+
 <ul>
 <li><code>http://127.0.0.1:8000/category/edit/:id</code>
 </li>
 <li><code>http://127.0.0.1:8000/journal/edit/:id</code></li></ul>
 
 #### Delete a journal and a category:
+
 <ul><li><code>http://127.0.0.1:8000/category/delete/:id</code>
 </li><li><code>http://127.0.0.1:8000/journal/delete/:id</code></li></ul>
 
 #### Journals summary
+
 <ul><li><code>http://127.0.0.1:8000/journals/summary</code>
 </li></ul>
