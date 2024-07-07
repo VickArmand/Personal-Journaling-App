@@ -2,7 +2,7 @@
 
 ## Project Description
 <p>This project consists of a mobile application and a backend service for personal journaling. Users are be able to write journal entries, categorize them, and view a summary of their entries.<br>
-The mobile application is built using React Native while the backend  service is built using Django(Python Framework).<br>
+The mobile application is built using React Native while the backend service is built using Django(Python Framework).<br>
 The relational database used is MySQL.</p>
 
 ## Features
@@ -35,7 +35,7 @@ The relational database used is MySQL.</p>
 <ol>
 <li>User Management
 <ul>
-<li>User registration and authentication (JWT or session-based).</li>
+<li>User registration and authentication (session-based).</li>
 <li>Profile management.</li></ul>
 </li>
 <li>Journal Entry Management
