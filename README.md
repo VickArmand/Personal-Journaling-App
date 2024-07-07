@@ -52,7 +52,9 @@ The relational database used is MySQL.</p>
 
 ## Execution
 <ul>
-<b>First make sure you have Python installed in your machine</b>
+<b>First make sure you have Python and MySQL installed in your machine</b>
+<li>Start the sql service in your machine</li>
+<li>Create a database named <b>Journalsappdb</b></li>
 <li>Create a virtual environment for the backend using the following command:
 <code>python -m venv env</code></li>
 <li>Activate the virtual environment using the following command:
@@ -60,6 +62,7 @@ The relational database used is MySQL.</p>
 <code>env\Scripts\activate</code> - <b>Windows</b></li>
 <li>Add the required dependencies in the virtual environment using the following command:
 <code>pip install -r requirements.txt</code>
+<li>Add tables to the database using <code>python manage.py makemigrations</code> and <code>python manage.py migrate</code></li>
 <li>Execute the backend using the following command:
 <code>python manage.py runserver</code></li>
 </ul>
