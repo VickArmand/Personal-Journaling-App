@@ -31,6 +31,8 @@ def signin(request):
 @api_view(['POST'])
 def register(request):
     """"""
+    if request.data.get('confirmpassword') != request.data.get('password') or not request.data.get('confirmpassword'):
+        return JsonResponse({"error": "Passwords should be similar"}, status=status.HTTP_400_BAD_REQUEST)
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
