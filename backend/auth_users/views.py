@@ -60,6 +60,7 @@ def edit_user(request):
     return JsonResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def signout(request):
     """"""
     logout(request)
