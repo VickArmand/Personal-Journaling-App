@@ -4,25 +4,20 @@ import uri from '../config/env';
 import Header from '../sections/header';
 import styles from '../styles/styles';
 
+state = {}
+async function login(request) {
+  await axios.post(`${uri}users/login`, request).then((res) => {
+    alert(res.data.success);
+  }).catch((err) => alert(err.response.data.error));
+}
 export default function LoginScreen() {
-  state = {}
-  console.log(state)
-  function login(request) {
-    const response = axios.post(`${uri}users/login`, request).then((result) => {
-      if (result.data.success)
-        alert("Logged in")
-      else
-        alert(result.error)
-    }).catch((err) => alert(err.message))
-    return response
-  }
   return (
     <View style={styles.top}>
       <Header/>
       <View style={styles.container}>
       <TextInput placeholder="Enter your Email Address" style={styles.input} onChangeText={(text) => state.email = text}/>
       <TextInput placeholder="Enter your Password" style={styles.input} secureTextEntry password onChangeText={(text) => state.password = text}/>
-      <Button title="Log In" style={{color: 'orange'}} onPress={() => login(state)}/>
+      <Button title="Log In" style={{color: 'orange'}} onPress={async () => await login(state)}/>
         Click here to Register
       </View>
     </View>
