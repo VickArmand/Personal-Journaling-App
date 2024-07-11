@@ -7,6 +7,7 @@ from .serializers import UserSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from django.middleware.csrf import get_token
 
 
 @api_view(['POST'])
@@ -20,7 +21,7 @@ def signin(request):
         user = CustomUser.objects.get(email=request.data.get('email'))
         if user.check_password(request.data.get('password')):
             login(request=request, user=user)
-            return JsonResponse({"success": 'Logged in'}, status=status.HTTP_202_ACCEPTED) 
+            return JsonResponse({"session-key": request.session.session_key, 'csrf-token': get_token(request=request)}, status=status.HTTP_202_ACCEPTED) 
         else:
             return JsonResponse({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
     except CustomUser.DoesNotExist:
