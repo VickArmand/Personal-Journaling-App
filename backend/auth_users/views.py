@@ -20,7 +20,7 @@ def signin(request):
         user = CustomUser.objects.get(email=request.data.get('email'))
         if user.check_password(request.data.get('password')):
             login(request=request, user=user)
-            return JsonResponse({"Success": 'Logged in'}, status=status.HTTP_202_ACCEPTED) 
+            return JsonResponse({"success": 'Logged in'}, status=status.HTTP_202_ACCEPTED) 
         else:
             return JsonResponse({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
     except CustomUser.DoesNotExist:
