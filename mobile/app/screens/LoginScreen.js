@@ -7,7 +7,8 @@ import styles from '../styles/styles';
 state = {}
 async function login(request) {
   await axios.post(`${uri}users/login`, request).then((res) => {
-    alert(res.data.success);
+    console.log(res)
+    alert("Login success");
   }).catch((err) => alert(err.response.data.error));
 }
 export default function LoginScreen() {
