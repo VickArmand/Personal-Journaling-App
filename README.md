@@ -87,46 +87,46 @@ The relational database used is MySQL.</p>
 #### Authentication
 
 <ul>
-<li><b>Sign Up: </b><code>http://127.0.0.1:8000/users/register</code></li>
-<li><b>Sign In: </b><code>http://127.0.0.1:8000/users/login</code></li>
-<li><b>Sign Out: </b><code>http://127.0.0.1:8000/users/logout</code></li>
+<li><b>Sign Up: </b><code>/users/register</code></li>
+<li><b>Sign In: </b><code>/users/login</code></li>
+<li><b>Sign Out: </b><code>/users/logout</code></li>
 </ul>
 
 #### Show Journals and Categories:
 
 <ul>
-<li><code>http://127.0.0.1:8000/categories</code></li>
-<li><code>http://127.0.0.1:8000/journals</code></li>
+<li><code>/categories</code></li>
+<li><code>/journals</code></li>
 </ul>
 
 #### Find a journal and a category:
 
 <ul>
-<li><code>http://127.0.0.1:8000/category/:id</code>
+<li><code>/category/:id</code>
 </li>
-<li><code>http://127.0.0.1:8000/journal/:id</code></li>
+<li><code>/journal/:id</code></li>
 </ul>
 
 #### Create a journal and a category:
 
 <ul>
-<li><code>http://127.0.0.1:8000/category/add/</code></li>
-<li><code>http://127.0.0.1:8000/journal/add/</code></li>
+<li><code>/category/add/</code></li>
+<li><code>/journal/add/</code></li>
 </ul>
 
 #### Edit an existing journal and a category:
 
 <ul>
-<li><code>http://127.0.0.1:8000/category/edit/:id</code>
+<li><code>/category/edit/:id</code>
 </li>
-<li><code>http://127.0.0.1:8000/journal/edit/:id</code></li></ul>
+<li><code>/journal/edit/:id</code></li></ul>
 
 #### Delete a journal and a category:
 
-<ul><li><code>http://127.0.0.1:8000/category/delete/:id</code>
-</li><li><code>http://127.0.0.1:8000/journal/delete/:id</code></li></ul>
+<ul><li><code>/category/delete/:id</code>
+</li><li><code>/journal/delete/:id</code></li></ul>
 
 #### Journals summary
 
-<ul><li><code>http://127.0.0.1:8000/journals/summary</code>
+<ul><li><code>/journals/summary</code>
 </li></ul>
