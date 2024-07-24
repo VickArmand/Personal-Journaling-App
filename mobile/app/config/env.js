@@ -1,1 +1,1 @@
-export default uri = "http://localhost:8000/";
+export default uri = "http://localhost:8000";
