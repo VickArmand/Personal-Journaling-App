@@ -3,8 +3,9 @@ from django.http import JsonResponse
 from .models import Journal
 from .serializers import JournalSerializer
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -16,6 +17,7 @@ def index(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def create(request):
     """"""
     serializer = JournalSerializer(data=request.data)
@@ -26,6 +28,7 @@ def create(request):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def edit(request, id):
     """"""
     cid = id
@@ -41,6 +44,7 @@ def edit(request, id):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def find(request, id):
     """"""
     cid = id
@@ -53,6 +57,7 @@ def find(request, id):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def summary(request):
     """"""
     from datetime import datetime
@@ -74,6 +79,7 @@ def summary(request):
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def delete(request, id):
     """"""
     cid = id

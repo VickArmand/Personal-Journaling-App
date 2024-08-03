@@ -5,9 +5,10 @@ from django.contrib.auth import login, logout, get_user
 from django.contrib.auth.models import AnonymousUser
 from .serializers import UserSerializer
 from rest_framework import status
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import IsAuthenticated
 from django.middleware.csrf import get_token
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
 @api_view(['POST'])
@@ -46,6 +47,7 @@ def register(request):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def edit_user(request):
     """"""
     user = get_user(request)
@@ -62,6 +64,7 @@ def edit_user(request):
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
+@authentication_classes([JWTAuthentication])
 def signout(request):
     """"""
     logout(request)
