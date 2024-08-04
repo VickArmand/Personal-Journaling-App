@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from .models import CustomUser
-from django.contrib.auth import login, logout, get_user
+from django.contrib.auth import login, get_user
 from django.contrib.auth.models import AnonymousUser
 from .serializers import UserSerializer
 from rest_framework import status
@@ -9,7 +9,7 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated
 from django.middleware.csrf import get_token
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
+from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken
 
 @api_view(['POST'])
 def signin(request):
@@ -60,12 +60,15 @@ def edit_user(request):
     if request.data.get('password'):
         user.set_password(request.data['password'])
         user.save()
-    return JsonResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
+    return JsonResponse(serializer.data, status=status.HTTP_205_RESET_CONTENT)
 
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def signout(request):
-    """"""
-    logout(request)
-    return JsonResponse({"success": "Logged out"}, status=status.HTTP_202_ACCEPTED)
+    """the access token is required"""
+    # user, token = JWTAuthentication().authenticate(request)
+    tokens = OutstandingToken.objects.filter(user_id=request.user.id)
+    for token in tokens:
+        t, _ = BlacklistedToken.objects.get_or_create(token=token)
+    return JsonResponse({"success": "Logged out"}, status=status.HTTP_205_RESET_CONTENT)
