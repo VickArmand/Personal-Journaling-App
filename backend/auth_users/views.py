@@ -9,7 +9,8 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated
 from django.middleware.csrf import get_token
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken
+from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken, RefreshToken
+from rest_framework_simplejwt.exceptions import TokenError
 
 @api_view(['POST'])
 def signin(request):
@@ -67,7 +68,11 @@ def edit_user(request):
 @authentication_classes([JWTAuthentication])
 def signout(request):
     """the access token is required"""
-    # user, token = JWTAuthentication().authenticate(request)
+    try:
+        token = RefreshToken(request.data["refresh"])
+        token.blacklist()
+    except TokenError:
+        return JsonResponse({"error": "Invalid Token or Expired"}, status=status.HTTP_401_UNAUTHORIZED)
     tokens = OutstandingToken.objects.filter(user_id=request.user.id)
     for token in tokens:
         t, _ = BlacklistedToken.objects.get_or_create(token=token)
