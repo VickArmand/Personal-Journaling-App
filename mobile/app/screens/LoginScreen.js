@@ -5,9 +5,12 @@ import Header from '../sections/header';
 import styles from '../styles/styles';
 
 state = {}
-async function login(request) {
-  await axios.post(`${uri}/users/login`, request).then((res) => {
+const tokens = {};
+async function login(data) {
+  await axios.post(`${uri}/users/login`, data).then((res) => {
     console.log(res)
+    tokens.accesstoken = res.data.access;
+    tokens.refreshtoken = res.data.refresh;
     alert("Login success");
   }).catch((err) => alert(err.response.data.error));
 }
@@ -25,8 +28,7 @@ export default function LoginScreen() {
       <TextInput placeholder="Enter your Email Address" style={styles.input} onChangeText={(text) => state.email = text}/>
       <TextInput placeholder="Enter your Password" style={styles.input} secureTextEntry password onChangeText={(text) => state.password = text}/>
       <Button title="Log In" style={{color: 'orange'}} onPress={async () => await login(state)}/>
-        Click here to Register
-      <Button title="Log Out" style={{color: 'orange'}} onPress={async () => await logout({session: "44334vla1q0u2rxain9btlvciybb11aa", token: "ixSxZBlC88LDtrp8p19IOhKZk6WhNiYhBtJg8HBZ17KcVFcxgdF0BIyFkMvI4P0d"})}/>
+      <Button title="Register" style={{color: 'orange'}} onPress={async () => await logout()}/>
       </View>
     </View>
   );
