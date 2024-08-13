@@ -14,12 +14,6 @@ async function login(data) {
     alert("Login success");
   }).catch((err) => alert(err.response.data.error));
 }
-async function logout(keys) {
-  await axios.delete(`${uri}/users/logout`, {headers: {Cookie: `sessionid=${keys.session}; csrftoken=${keys.token};`, 'x-csrftoken': keys.token}}, {withCredentials: true}).then((res) => {
-    console.log(res)
-    alert(res.data.success);
-  }).catch((err) => console.log(err));
-}
 export default function LoginScreen() {
   return (
     <View style={styles.top}>
@@ -28,7 +22,7 @@ export default function LoginScreen() {
       <TextInput placeholder="Enter your Email Address" style={styles.input} onChangeText={(text) => state.email = text}/>
       <TextInput placeholder="Enter your Password" style={styles.input} secureTextEntry password onChangeText={(text) => state.password = text}/>
       <Button title="Log In" style={{color: 'orange'}} onPress={async () => await login(state)}/>
-      <Button title="Register" style={{color: 'orange'}} onPress={async () => await logout()}/>
+      <Button title="Register" style={{color: 'orange'}}/>
       </View>
     </View>
   );
