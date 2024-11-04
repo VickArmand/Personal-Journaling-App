@@ -13,7 +13,7 @@ async function login(data, navigation) {
     alert("Login success");
     navigation.navigate('Dashboard', {
       accesstoken: res.data.access,
-      refreshtoken: res.data.refresh
+      refreshtoken: res.data.refresh,
     });
   }).catch((err) => alert(err.response.data.error));
 }

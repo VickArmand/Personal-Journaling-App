@@ -11,10 +11,11 @@ from django.middleware.csrf import get_token
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.tokens import OutstandingToken, BlacklistedToken, RefreshToken
 from rest_framework_simplejwt.exceptions import TokenError
+from rest_framework.authtoken.models import Token
 
 @api_view(['POST'])
 def signin(request):
-    """"""
+    """Session based login"""
     if not request.data.get('email'):
         return JsonResponse({"error": "Email required"}, status=status.HTTP_401_UNAUTHORIZED)
     elif not request.data.get('password'):
@@ -51,9 +52,12 @@ def register(request):
 @authentication_classes([JWTAuthentication])
 def edit_user(request):
     """"""
-    user = get_user(request)
-    if isinstance(user, AnonymousUser):
+    try:
+        user_id = Token.objects.get(key=request.auth).user_id
+        user = CustomUser.objects.get(id=user_id)
+    except Token.DoesNotExist:
         return JsonResponse({"error": "User Not Found"}, status=status.HTTP_404_NOT_FOUND)
+
     serializer = UserSerializer(user, data=request.data)
     if not serializer.is_valid():
         return JsonResponse({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
